@@ -1,8 +1,7 @@
 const bcrypt= require('bcryptjs');
 const pool = require("../config/database");
 const jwt = require('jsonwebtoken');
-require("dotenv").config(); // Charger les variables d'environnement
-// regist controller
+require("dotenv").config(); 
    const  registerUser = async (req, res) => {
     const { username, password } = req.body;
 
@@ -50,7 +49,7 @@ require("dotenv").config(); // Charger les variables d'environnement
             if (!user) {
                 return res.status(404).json({
                     success :false,
-                    message: "Utilisateur non trouvé ,veuille insecré"
+                    message: "utilisateur non trouvé ,il faut  insecreption"
                  });
             }
     
@@ -59,10 +58,10 @@ require("dotenv").config(); // Charger les variables d'environnement
             if (!isMatch) {
                 return res.status(401).json({
                     success :false,
-                     message: "Mot de passe incorrect."
+                     message: "Mot de passe incorrect"
                      });
             }
-            //  Générer un token JWT avec le rôle
+            //  Générer un token JWT avec le role
             const token = jwt.sign(
                 { id: user.id,
                     username: user.username,
@@ -72,7 +71,7 @@ require("dotenv").config(); // Charger les variables d'environnement
             );
             res.json({
                 success :true,
-                message: "Connexion réussie !",
+                message: "Connexion réussie ",
                 token,
             });
         } catch (error) {

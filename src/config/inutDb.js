@@ -5,16 +5,16 @@ const createTables = async () => {
         await pool.query(`
             CREATE TABLE IF NOT EXISTS users (
                 id SERIAL PRIMARY KEY,
-                username VARCHAR(255) UNIQUE NOT NULL,
+                username VARCHAR(25) UNIQUE NOT NULL,
                 password TEXT NOT NULL,
                 role VARCHAR(20) DEFAULT 'visiteur'
             );
 
             CREATE TABLE IF NOT EXISTS modules (
                 id SERIAL PRIMARY KEY,
-                name VARCHAR(255) NOT NULL,
+                name VARCHAR(100) NOT NULL,
                  year INT NOT NULL,
-                google_drive_link TEXT
+                google_drive_link TEXT NOT NULL
             );
         `);
         console.log(" les tables créées avec succès !");
@@ -43,7 +43,7 @@ const createSuperUser = async () => {
   
       console.log('superuser cree avec succès ');
     } catch (err) {
-      console.error('Erreur lors de la création du superuser :', err.message);
+      console.error('Erreur lors de la création du superuser :');
     }
   };
  

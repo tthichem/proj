@@ -3,7 +3,7 @@ const isSuperUser = (req, res, next) => {
     if (req.user.role !== 'superuser') {
         return res.status(403).json({
             success: false,
-            message: "Accès refusé. Seul le superuser peut effectuer cette action."
+            message: "accès refusé, seul le superuser peut fair ca "
         });
     }
     next(); 

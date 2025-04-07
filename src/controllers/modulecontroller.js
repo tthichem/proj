@@ -1,12 +1,12 @@
 const pool = require("../config/database");
 const isSuperUser = require("../middleware/isSuperUser"); // Importer le middleware
 
-//  Ajouter un module (superuser uniquement)
+//  Ajouter un module (superuser )
 const createModule = async (req, res) => {
     const { name, year, googleDriveLink } = req.body;
 
     try {
-        // Ajouter le module à la base de données
+        // ajouter module a la base de données
         const newModule = await pool.query(
             "INSERT INTO modules (name, year, google_drive_link) VALUES ($1, $2, $3) RETURNING *",
             [name, year, googleDriveLink]
@@ -27,11 +27,11 @@ const createModule = async (req, res) => {
 
 //  Supprimer un module (superuser uniquement)
 const deleteModule = async (req, res) => {
-    const { id } = req.params;
+    const { name } = req.params;
 
     try {
         // Supprimer le module
-        const result = await pool.query("DELETE FROM modules WHERE id = $1 RETURNING *", [id]);
+        const result = await pool.query("DELETE FROM modules WHERE name = $1 RETURNING *", [name]);
 
         if (result.rows.length === 0) {
             return res.status(404).json({
@@ -67,12 +67,12 @@ const getModules = async (req, res) => {
     }
 };
 
-//  Récupérer un module par ID
-const getModuleById = async (req, res) => {
-    const { id } = req.params;
+//  Récupérer un module par name
+const getModuleByName = async (req, res) => {
+    const {name} = req.params;
 
     try {
-        const result = await pool.query("SELECT * FROM modules WHERE id = $1", [id]);
+        const result = await pool.query("SELECT * FROM modules WHERE name = $1", [name]);
         
         if (result.rows.length === 0) {
             return res.status(404).json({
@@ -105,7 +105,7 @@ const searchModules = async (req, res) => {
     try {
         // Recherche des modules par nom 
         const result = await pool.query(
-            "SELECT * FROM modules WHERE name ILIKE $1 LIMIT 10",  // Limiter à 10 résultats
+            "SELECT * FROM modules WHERE name ILIKE $1 LIMIT 10",  //ya3tik 10 7adah
             [`%${query}%`]  
         );
 
@@ -123,4 +123,4 @@ const searchModules = async (req, res) => {
 
 
 
-module.exports = { createModule, getModules, getModuleById, deleteModule,searchModules };
+module.exports = { createModule, getModules, getModuleByName, deleteModule,searchModules };
