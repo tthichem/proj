@@ -19,7 +19,7 @@ const createTables = async () => {
         `);
         console.log(" les tables créées avec succès !");
     } catch (error) {
-        console.error(" Erreur lors de la création des tables :", error);
+        console.error(" Erreur lors de la création des tables :");
     } 
 };
 const createSuperUser = async () => {
