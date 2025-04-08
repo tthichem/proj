@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { createModule, getModules, getModuleByName, deleteModule,searchModules } = require('./controllers/moduleController');
-const isSuperUser = require('../middleware/isSuperUser');
+const { createModule, getModules, getModuleByName, deleteModule,searchModules } = require('../controllers/modulecontroller');
+const isSuperUser = require('../middleware/SuperUserMiddleware');
 
 
 router.post('/modules', isSuperUser, createModule);

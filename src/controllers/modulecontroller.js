@@ -1,5 +1,5 @@
 const pool = require("../config/database");
-const isSuperUser = require("../middleware/isSuperUser"); // Importer le middleware
+const isSuperUser = require("../middleware/SuperUserMiddleware"); // Importer le middleware
 
 //  Ajouter un module (superuser )
 const createModule = async (req, res) => {

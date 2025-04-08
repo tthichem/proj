@@ -47,7 +47,7 @@ const createSuperUser = async () => {
     }
   };
  
-  const initDb = async () => {
+  const InitDb = async () => {
     try {
         await createTables();
         await createSuperUser();
@@ -58,4 +58,4 @@ const createSuperUser = async () => {
     }
 };
 
-initDb()
+InitDb()
