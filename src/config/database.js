@@ -8,5 +8,13 @@ const pool = new Pool({
     password: process.env.DB_PASS,
     port: process.env.DB_PORT,
 });
+const testConnection = async () => {
+    try {
+         await pool.connect();
+        console.log(" Database connected successfully"); 
+    } catch (err) {
+        console.error(" Database connection failed");
+    }
+  };
 
-module.exports = pool;
+module.exports = {pool,testConnection};

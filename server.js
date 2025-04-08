@@ -1,4 +1,6 @@
 require("dotenv").config();
+const {testConnection} = require("./src/config/database");
+testConnection();
 const express = require("express");
 const moduleRoutes = require("./src/routes/moduleroutes");
 const authRoutes = require("./src/routes/authroutes");

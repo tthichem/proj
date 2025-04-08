@@ -1,5 +1,6 @@
-const pool = require("./database");
+const { pool, testConnection } = require("./database");
 const bcrypt = require('bcryptjs');
+testConnection();
 const createTables = async () => {
     try {
         await pool.query(`
