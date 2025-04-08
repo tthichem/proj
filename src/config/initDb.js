@@ -10,11 +10,13 @@ const createTables = async () => {
                 password TEXT NOT NULL,
                 role VARCHAR(20) DEFAULT 'visiteur'
             );
-
             CREATE TABLE IF NOT EXISTS modules (
                 id SERIAL PRIMARY KEY,
+                systeme VARCHAR(10) CHECK (systeme IN ('LMD', 'ING')) NOT NULL,
+                anne INT CHECK NOT NULL (anne BETWEEN 1 AND 5),
                 name VARCHAR(100) NOT NULL,
-                 year INT NOT NULL,
+               specialité VARCHAR(100) CHECK (specialité IN ('general','Intelligence Artificielle','Réseaux','ISIL', 'SI','WIC','RSSI','ISI')),
+                semester INT CHECK (semester BETWEEN 1 AND 2),
                 google_drive_link TEXT NOT NULL
             );
         `);
