@@ -26,7 +26,7 @@ const createModule = async (req, res) => {
 };
 
 //  Supprimer un module (superuser uniquement)
-const deleteModule = async (req, res) => {
+const deleteModuleByName = async (req, res) => {
     const { name } = req.params;
 
     try {
@@ -92,16 +92,54 @@ const getModuleByName = async (req, res) => {
         });
     }
 };
-const searchModules = async (req, res) => {
-    const { query } = req.query;  // le mot rechercher
 
-    if (!query) {
-        return res.status(400).json({
-            success: false,
-            message: "Aucun terme de recherche fourni",
-        });
-    }
-
+    // gmadli systeme, anne, specialite, semester  w nrodlek les modules fi tableau kol casa m3amra fiha json {
+      //     {         "id"    .........., 
+     //              "name": ".........", 
+      //             "systeme": "........", 
+      //              "annee": .........., 
+      //               "semestre": 1
+       //                 "link": .....:
+       //                "name":.....;
+    //              }
+    const getModuleBySystemAndAnneAndSpecaliteAndSemester = async (req, res) => {
+        const { systeme, anne, specialite, semester } = req.body;
+        if (!systeme || !anne || !specialite || !semester) {
+            return res.status(400).json({
+                success: false,
+                message: "Tous les champs (systeme, anne, specialite, semester) sont requis",
+            });
+        }
+        try {
+            const result = await pool.query("SELECT * FROM modules WHERE systeme = $1 AND anne = $2 AND specialite = $3  AND semester = $4",
+                [systeme, anne, specialite, semester]);
+            if (result.rows.length === 0) {
+                return res.status(404).json({
+                    success: false,
+                    message: "Modules non trouvé.",
+                });
+            }
+    
+            res.json({
+                success: true,
+                module: result.rows,
+            });
+        } catch (error) {
+            res.status(500).json({
+                success: false,
+                message: "Erreur lors de la récupération des modules.",
+            });
+        }
+    };
+    const searchModules = async (req, res) => {
+        const { query } = req.query;  // le mot rechercher
+    
+        if (!query) {
+            return res.status(400).json({
+                success: false,
+                message: "Aucun terme de recherche fourni",
+            });
+        }
     try {
         // Recherche des modules par nom 
         const result = await pool.query(
@@ -120,7 +158,4 @@ const searchModules = async (req, res) => {
         });
     }
 }
-
-
-
-module.exports = { createModule, getModules, getModuleByName, deleteModule,searchModules };
+module.exports = { createModule, getModules, getModuleByName, deleteModuleByName,getModuleBySystemAndAnneAndSpecaliteAndSemester,searchModules};

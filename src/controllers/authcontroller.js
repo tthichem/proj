@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 require("dotenv").config(); 
    const  registerUser = async (req, res) => {
     const { username, password } = req.body;
-
     try {
         //  Vérifier si aslan rah msajal( l'email est déjà utilisé)
         const result = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
