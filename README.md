@@ -1,8 +1,7 @@
 telechargoh w unzip
 f vs code dkhlo lfolder
-npm install
-npm start
-
+: npm install
+,npm run dev
 
 
 # React + Vite
