@@ -10,7 +10,7 @@ const Filter = ({theme,type,setType}) => {
         {data.map((promo,index) => {
           return(
             <div onClick={() => setType(prev => prev ===promo.name ? "" :promo.name)} key={index} className="filter-items">
-              <h2 className={`$type === promo.name ? "active" : "" } ${theme}` }>{promo.name} </h2>
+              <h2 className={`${type === promo.name ? "active" : "" } ${theme}` }>{promo.name} </h2>
             </div>
           )
         })}

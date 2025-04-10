@@ -34,26 +34,25 @@
   transition: 0.3s;
 }
 .filter-list h2:hover {
-  background-color: #2e3a59;
+  background-color: #262626;
   color: #ffffff;
 }
-.filter-items .active{
-    border: 4px solid #5c6b89;
-    padding: 2px;
-    transition: 0.3s;
+.filter-items .active {
+  border: 4px solid #ffffff;
+  padding: 2px;
+  transition: 0.3s;
 }
-h1.dark{
+h1.dark {
   color: #faf4d3;
 }
-h2.dark:hover{
+h2.dark:hover {
   background-color: #faf4d3;
   color: #262626;
-
 }
 
-@media (max-width:1050px){
-    .filter-list{
-        max-width: 100%;
-        font-size: 14px;
-    }
+@media (max-width: 1050px) {
+  .filter-list {
+    max-width: 100%;
+    font-size: 14px;
+  }
 }
