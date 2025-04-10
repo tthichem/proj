@@ -1,0 +1,115 @@
+.navbar {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .logo {
+  width: 120px;
+}
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  color: #0c1618;
+  font-size: 18px;
+}
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.navbar button {
+  background: transparent;
+  font-size: 16px;
+  color: #0c1618;
+  border: 1px solid rgb(22, 99, 112);
+  padding: 10px 30px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.navbar button:hover {
+  background-color: #004643;
+  color: #faf4d3;
+}
+.navbar .active {
+  padding-bottom: 2px;
+  border-bottom: 2px solid #004643;
+}
+.navbar li {
+  cursor: pointer;
+}
+.dark-light {
+  cursor: pointer;
+}
+
+.dark-light .light {
+  background-color: white;
+  border: 2px solid #ccc;
+  margin-top: 8px;
+  border-radius: 8px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.search-icon.dark {
+  background-color: white;
+  border: 2px solid #ccc;
+  margin-top: 4px;
+  border-radius: 8px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.navbar-menu.dark {
+  color: #faf4d3;
+  margin-left: 8px;
+}
+.login-buttona.dark {
+  color: #faf4d3;
+  border: 1px solid rgb(110, 184, 197);
+}
+.login-buttona.dark:hover {
+  background-color: #6a8b8d;
+  color: #0c1618;
+}
+@media (max-width: 1050px) {
+  .navbar .logo {
+    width: 90px;
+  }
+  .navbar-menu {
+    gap: 20px;
+    font-size: 17px;
+  }
+  .navbar-right {
+    gap: 30px;
+  }
+  .navbar-right button {
+    padding: 8px 25px;
+  }
+}
+
+@media (max-width: 900px) {
+  .navbar .logo {
+    width: 75px;
+  }
+  .navbar-menu {
+    gap: 15px;
+    font-size: 16px;
+  }
+  .navbar-right {
+    gap: 20px;
+  }
+  .navbar-right button {
+    padding: 7px 20px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 750px) {
+  .navbar-menu {
+    display: none;
+  }
+}

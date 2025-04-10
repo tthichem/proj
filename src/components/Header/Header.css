@@ -1,0 +1,65 @@
+.header {
+  height: 40vw;
+  margin: 10px auto;
+  background: linear-gradient(rgba(2, 18, 24, 0.568)),
+    url("../../assets/rr.jpg") no-repeat;
+  background-size: cover;
+  border-radius: 15px;
+  position: relative;
+  width: 80%;
+}
+.header-content {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 1.5vw;
+  max-width: 50%;
+  bottom: 10%;
+  left: 6vw;
+  animation: fadeIn 3s;
+}
+.header-content h2 {
+  font-weight: 500;
+  color: white;
+  font-size: max(4.5vw, 22px);
+}
+.header-content p {
+  color: white;
+  font-size: 1.2vw;
+}
+.header-content button {
+  border: none;
+  color: #000000;
+  font-weight: 500;
+  padding: 1vw 2.3vw;
+  background-color: white;
+  font-size: max(1vw, 13px);
+  border-radius: 50px;
+}
+.header-content button:hover {
+  background-color: #004643;
+  color: #faf4d3;
+  transition: 0.3s;
+}
+@media(max-width:1050px){
+  .header{
+      height: 38vw;
+  }
+  .header-content{
+      max-width: 45%;
+  }
+}
+
+@media(max-width:750px){
+  
+  .header-content{
+      max-width: 65%;
+  }
+  .header-content p{
+      display: none;
+  }
+  .header-content button{
+      padding: 2vw 4vw;
+  }
+}

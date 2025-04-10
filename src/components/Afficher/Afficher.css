@@ -1,0 +1,130 @@
+hr {
+  margin: 10px 0;
+  height: 2px;
+}
+.afficher {
+  padding: 1rem;
+}
+
+.major-card {
+  background-color: #004643;
+  border: 2px solid #004643;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+
+}
+
+.major-title {
+  color: white;
+  padding: 20px 150px;
+  margin-bottom: 1rem;
+}
+
+.semesters-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.semester-box {
+  flex: 1 1 45%;
+  padding: 16px;
+  background-color: #faf4d3;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.major-item {
+  margin-bottom: 1rem;
+}
+
+.module-link {
+  display: inline-block;
+  font-size: 1.1rem;
+  color: #1a4969;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  animation: appear 1s;
+}
+
+.module-link:hover {
+  background-color: #1a4969;
+  color: white;
+  transform: translateY(-3px);
+}
+
+.module-link:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(26, 73, 105, 0.3);
+}
+
+.specialite-side {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.speciality-box {
+  flex: 1 1 45%;
+  padding: 1rem;
+  background-color: #004643;
+  color: #0c1618;
+  border: 2px solid #faf4d3;
+  border-radius: 8px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .specialite-side {
+    flex-direction: column;
+  }
+
+  .speciality-box {
+    flex: 1 1 100%;
+  }
+}
+@media (max-width: 768px) {
+  .semester-box {
+    flex: 1 1 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .major-card {
+    margin-left: 60px;
+    margin-right: 60px;
+  }
+}
+@media (min-width: 1280px) {
+  .major-card {
+    margin-left: 200px;
+    margin-right: 200px;
+  }
+}
+@media (min-width: 1600px) {
+  .major-card {
+    margin-left: 300px;
+    margin-right: 300px;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    scale: 0.5;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
