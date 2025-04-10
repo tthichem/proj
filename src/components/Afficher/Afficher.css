@@ -68,13 +68,15 @@ hr {
 
 .specialite-side {
   display: flex;
+  flex-direction: column;
   gap: 2rem;
   flex-wrap: wrap;
   margin-top: 30px;
 }
 
 .speciality-box {
-  flex: 1 1 45%;
+  width: 100%;
+  flex: none;
   padding: 1rem;
   background-color: #004643;
   color: #0c1618;
