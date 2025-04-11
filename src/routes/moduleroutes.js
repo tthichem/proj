@@ -7,7 +7,7 @@ const isSuperUser = require('../middleware/SuperUserMiddleware');
 router.post('/add', createModule);
 router.post('/semester',getModuleBySystemAndAnneAndSpecaliteAndSemester);
 router.delete('/delete/:name',deleteModuleByName);
-router.get('/g', getModules);
+router.get('/get', getModules);
 router.get('/get/:name', getModuleByName);
 router.get('/search', searchModules);
 module.exports = router;

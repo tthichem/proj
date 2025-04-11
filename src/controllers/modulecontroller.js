@@ -57,7 +57,7 @@ const deleteModuleByName = async (req, res) => {
 //  Récupérer tous les modules
 const getModules = async (req, res) => {
     try {
-        const result = await pool.query("SELECT * FROM modules ORDER BY year, name");
+        const result = await pool.query("SELECT * FROM modules ORDER BY systeme,anne,semester");
         res.json({
             success: true,
             modules: result.rows,
