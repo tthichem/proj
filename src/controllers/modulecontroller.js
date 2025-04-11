@@ -1,15 +1,17 @@
-const pool = require("../config/database");
+const { pool } = require("../config/database");
 const isSuperUser = require("../middleware/SuperUserMiddleware"); // Importer le middleware
 
 //  Ajouter un module (superuser )
 const createModule = async (req, res) => {
-    const { name, year, googleDriveLink } = req.body;
+    const {name,systeme,anne,specialité,semester,google_drive_link} = req.body;
 
-    try {
-        // ajouter module a la base de données
+
+   try {
         const newModule = await pool.query(
-            "INSERT INTO modules (name, year, google_drive_link) VALUES ($1, $2, $3) RETURNING *",
-            [name, year, googleDriveLink]
+            `INSERT INTO modules (name,systeme,anne,specialité,semester,google_drive_link)
+             VALUES ($1, $2, $3, $4, $5, $6)
+             RETURNING *`,
+            [name,systeme,anne,specialité,semester,google_drive_link]
         );
 
         res.status(201).json({
@@ -18,6 +20,7 @@ const createModule = async (req, res) => {
             module: newModule.rows[0],
         });
     } catch (error) {
+        console.error(error);
         res.status(500).json({
             success: false,
             message: "Erreur lors de l'ajout du module.",
@@ -103,16 +106,16 @@ const getModuleByName = async (req, res) => {
        //                "name":.....;
     //              }
     const getModuleBySystemAndAnneAndSpecaliteAndSemester = async (req, res) => {
-        const { systeme, anne, specialite, semester } = req.body;
-        if (!systeme || !anne || !specialite || !semester) {
+        const { systeme, anne, specialité, semester } = req.body;
+        if (!systeme || !anne || !specialité || !semester) {
             return res.status(400).json({
                 success: false,
-                message: "Tous les champs (systeme, anne, specialite, semester) sont requis",
+                message: "Tous les champs (systeme, anne, specialité, semester) sont requis",
             });
         }
         try {
-            const result = await pool.query("SELECT * FROM modules WHERE systeme = $1 AND anne = $2 AND specialite = $3  AND semester = $4",
-                [systeme, anne, specialite, semester]);
+            const result = await pool.query("SELECT * FROM modules WHERE systeme = $1 AND anne = $2 AND specialité = $3  AND semester = $4",
+                [systeme, anne, specialité, semester]);
             if (result.rows.length === 0) {
                 return res.status(404).json({
                     success: false,

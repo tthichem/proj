@@ -4,10 +4,10 @@ const { createModule, getModules, getModuleByName, deleteModuleByName,getModuleB
 const isSuperUser = require('../middleware/SuperUserMiddleware');
 
 
-router.post('/modules', isSuperUser, createModule);
-router.post('/modules', isSuperUser,getModuleBySystemAndAnneAndSpecaliteAndSemester);
-router.delete('/modules/:name', isSuperUser,deleteModuleByName);
-router.get('/modules', getModules);
-router.get('/modules/:name', getModuleByName);
+router.post('/add', createModule);
+router.post('/semester',getModuleBySystemAndAnneAndSpecaliteAndSemester);
+router.delete('/delete/:name',deleteModuleByName);
+router.get('/g', getModules);
+router.get('/get/:name', getModuleByName);
 router.get('/search', searchModules);
 module.exports = router;
