@@ -4,6 +4,7 @@ import Header from '../../components/Header/Header'
 import Filter from '../../components/Filter/Filter'
 import Search from '../../components/Search/Search'
 import Afficher from '../../components/Afficher/Afficher'
+import SearchBar from '../../components/searchBar/SearchBar'
 
 
 

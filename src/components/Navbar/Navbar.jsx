@@ -6,6 +6,7 @@ import { FaSearch } from 'react-icons/fa'
 import Search from '../Search/Search'
 import { MdDarkMode } from "react-icons/md";
 import { MdOutlineDarkMode } from "react-icons/md"; 
+import SearchBar from '../searchBar/SearchBar'
 
 
 
@@ -28,7 +29,8 @@ const Navbar = ({setShowLogin,theme,setTheme}) => {
         </ul>
         <div className="navbar-right">
             
-            <FaSearch className={`search-icon ${theme}`}/>
+
+            <SearchBar theme={theme}/>
             <div onClick={()=>{dark()}} className='dark-light'>{theme ==='light' ?(
               <MdDarkMode />): (
                 <MdOutlineDarkMode className='light'/>
