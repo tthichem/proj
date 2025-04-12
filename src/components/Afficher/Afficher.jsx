@@ -1,94 +1,87 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Afficher.css";
-import Data from "../../modules.json";
-import { useState } from "react";
 
-const Afficher = ({type}) => {
+const Afficher = ({ promoSelecte }) => {
+  const [modules, setModules] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const fetchModules = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/modules/get');
+        const data = await response.json();
+        if (data.success) setModules(data.modules);
+      } catch (error) {
+        console.error("Error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchModules();
+  }, []);
 
-  const filteredData = type
-    ? Data.filter((data) => data.name === type)
-    : Data;
+  const organizer = (modules) => {
+    return modules.reduce((acc, module) => {
+      // ki tedrok 3la promo yakhdem filter
+      if (promoSelecte && module.anne !== promoSelecte) return acc;
+      
+      if (!acc[module.anne]) acc[module.anne] = {};
+      if (!acc[module.anne][module.specialité]) acc[module.anne][module.specialité] = {};
+      if (!acc[module.anne][module.specialité][module.semester]) {
+        acc[module.anne][module.specialité][module.semester] = [];
+      }
+      
+      acc[module.anne][module.specialité][module.semester].push({
+        name: module.name,
+        link: module.google_drive_link
+      });
+      
+      return acc;
+    }, {});
+  };
+
+  const dataOrganize = organizer(modules);
+
+  if (loading) return <div className="loading">Loading...</div>;
 
   return (
     <div className="afficher">
-      {filteredData &&
-        filteredData.map((data) => {
-          return (
-            <div className="major-card" key={data.name}>
-              <hr />
-              <h2 className="major-title major-card">{data.name}</h2>
-              
+      {Object.entries(dataOrganize).map(([anne, specialites]) => (
+        <div key={anne} className="major-card">
+          <h2 className="major-title">{anne}</h2>
+          <hr />
+          
+          <div className="specialite-side">
+            {Object.entries(specialites).map(([specialite, semesters]) => (
+              <div key={specialite} className="speciality-box">
+                <h3 className="speciality-title">{specialite || 'General'}</h3>
                 
-              
-              
-                
-              
-              {data.semestres && (
                 <div className="semesters-container">
-                  {data.semestres.map((semestre) => (
-                    <div  key={semestre.name} className="semester-box">
-                      <h3>{semestre.name}</h3>
+                  {Object.entries(semesters).map(([semester, modules]) => (
+                    <div key={semester} className="semester-box">
+                      <h4>Semester {semester}</h4>
                       <hr />
-
-                      {semestre.modules &&
-                        semestre.modules.map((module) => (
-                          <div key={module.name}>
-                            <a
-                              className="module-link"
-                              target="_blank"
-                              href={module.link}
-                              rel="noopener noreferrer"
-                            >
-                              {module.name}
-                            </a>
-                          </div>
-                        ))}
+                      
+                      {modules.map((module, i) => (
+                        <div key={i}>
+                          <a
+                            className="module-link"
+                            href={module.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {module.name}
+                          </a>
+                        </div>
+                      ))}
                     </div>
                   ))}
                 </div>
-              )}
-              <div className="specialite-side">
-                {data.specialites &&
-                  data.specialites.map((spec, i) => (
-                    <div className="speciality-box" key={i}>
-                      <h3 className="speciality-title">{spec.name}</h3>
-                      
-                        
-                      
-                      
-                        
-                      
-
-                      <div className="semesters-container">
-                        {spec.semestres &&
-                          spec.semestres.map((sem) => (
-                            <div key={sem.name} className="semester-box" >
-                              <h4>{sem.name}</h4>
-                              <hr />
-
-                              {sem.modules &&
-                                sem.modules.map((mod, k) => (
-                                  <div key={k}>
-                                    <a
-                                      className="module-link"
-                                      target="_blank"
-                                      href={mod.link}
-                                      rel="noopener noreferrer"
-                                    >
-                                      {mod.name}
-                                    </a>
-                                  </div>
-                                ))}
-                            </div>
-                          ))}
-                      </div>
-                    </div>
-                  ))}
               </div>
-            </div>
-          );
-        })}
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
