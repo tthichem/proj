@@ -105,7 +105,7 @@ const getModuleByName = async (req, res) => {
        //                 "link": .....:
        //                "name":.....;
     //              }
-    const getModuleBySystemAndAnneAndSpecaliteAndSemester = async (req, res) => {
+    const getModulesBox = async (req, res) => {
         const { systeme, anne, specialité, semester } = req.body;
         if (!systeme || !anne || !specialité || !semester) {
             return res.status(400).json({
@@ -161,4 +161,16 @@ const getModuleByName = async (req, res) => {
         });
     }
 }
-module.exports = { createModule, getModules, getModuleByName, deleteModuleByName,getModuleBySystemAndAnneAndSpecaliteAndSemester,searchModules};
+const getDistinctSpecialites = async (req, res) => {
+    try {
+      const result = await pool.query('SELECT DISTINCT specialité FROM modules');
+      res.json({ success: true, 
+        specialites: result.rows});
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Erreur lors de la récupération des spécialités.",
+      });
+    }
+  };
+module.exports = { createModule, getModules, getModuleByName, deleteModuleByName,getModulesBox,getDistinctSpecialites,searchModules};
