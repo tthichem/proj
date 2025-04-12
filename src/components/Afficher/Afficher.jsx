@@ -48,8 +48,9 @@ const Afficher = ({ promoSelecte }) => {
     <div className="afficher">
       {Object.entries(dataOrganize).map(([anne, specialites]) => (
         <div key={anne} className="major-card">
-          <h2 className="major-title">{anne}</h2>
           <hr />
+          <h2 className="major-title">{anne}</h2>
+          
           
           <div className="specialite-side">
             {Object.entries(specialites).map(([specialite, semesters]) => (
