@@ -24,14 +24,21 @@ const Afficher = ({ promoSelecte }) => {
     return modules.reduce((acc, module) => {
       // ki tedrok 3la promo yakhdem filter
       if (promoSelecte && module.anne !== promoSelecte) return acc;
-      
-      if (!acc[module.anne]) acc[module.anne] = {};
-      if (!acc[module.anne][module.specialité]) acc[module.anne][module.specialité] = {};
-      if (!acc[module.anne][module.specialité][module.semester]) {
-        acc[module.anne][module.specialité][module.semester] = [];
+
+      // ida y exixti systeme yaffichih, ida la ycréer wahed general
+      const systeme = module.systeme || "Général";
+      if(!acc[systeme]) acc[systeme] = {};
+
+      //drwk y checki ida kayen des promo w des specialites wsemestre fsysteme
+      if(!acc[systeme] [module.anne]) acc[systeme] [module.anne] = {};
+      if (!acc[systeme][module.anne][module.specialité]) acc[systeme][module.anne][module.specialité] = {};
+
+
+      if (!acc[systeme][module.anne][module.specialité][module.semester]) {
+        acc[systeme][module.anne][module.specialité][module.semester] = [];
       }
       
-      acc[module.anne][module.specialité][module.semester].push({
+      acc[systeme][module.anne][module.specialité][module.semester].push({
         name: module.name,
         link: module.google_drive_link
       });
@@ -46,7 +53,11 @@ const Afficher = ({ promoSelecte }) => {
 
   return (
     <div className="afficher">
-      {Object.entries(dataOrganize).map(([anne, specialites]) => (
+      {Object.entries(dataOrganize).map(([systeme, promos]) => (
+        <div key={systeme} className="systeme-card">
+          <h1 className="systeme-title">SYSTEM {systeme}</h1>
+          <hr />
+      {Object.entries(promos).map(([anne, specialites]) => (
         <div key={anne} className="major-card">
           <hr />
           <h2 className="major-title">{anne}</h2>
@@ -83,6 +94,9 @@ const Afficher = ({ promoSelecte }) => {
           </div>
         </div>
       ))}
+      </div>
+      ))}
+      
     </div>
   );
 };

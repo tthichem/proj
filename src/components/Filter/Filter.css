@@ -23,7 +23,7 @@
   display: none;
 }
 .filter-list h2 {
-  background-color: #004643;
+  background-color: #0077b6;
   color: #dcdfe6;
   padding: 0.5rem;
   border: 2px solid #ccc;
@@ -34,12 +34,12 @@
   transition: 0.3s;
 }
 .filter-list h2:hover {
-  background-color: #a39d77;
-  color: #ffffff;
+  background-color: #ccc;
+  color: #000000;
 }
 .filter-items .active {
   border: 4px solid #ffffff;
-  background-color: #a39d77;
+  background-color: #ccc;
   color: #262626;
   padding: 2px;
   transition: 0.3s;
