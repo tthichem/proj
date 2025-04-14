@@ -1,0 +1,21 @@
+body{
+    min-height: 100vh;
+    
+  }
+  a{
+    text-decoration: none;
+    color: inherit;
+  }
+  hr{
+    border: none;
+    height: 1px;
+    background-color: gray;
+  }
+  .content{
+    display: flex;
+  }
+  .form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }

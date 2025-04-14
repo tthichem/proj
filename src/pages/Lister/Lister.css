@@ -1,0 +1,39 @@
+.tableau-format {
+  display: grid;
+  grid-template-columns:
+    minmax(150px, 2fr)
+    minmax(80px, 1fr)
+    minmax(120px, 1.5fr)
+    minmax(100px, 1fr)
+    minmax(80px, 0.8fr)
+    minmax(200px, 2fr)
+    50px;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  border: 1px solid gray;
+  font-size: 13px;
+}
+.drive-link {
+  display: inline-block;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.titre {
+    background-color: rgb(209, 209, 209);
+}
+.delete{
+    cursor: pointer;
+}
+
+@media(max-width: 600px){
+    .tableau-format{
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        gap: 15px;
+    }
+    .titre{
+        display: none;
+    }
+}
