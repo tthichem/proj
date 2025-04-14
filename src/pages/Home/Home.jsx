@@ -4,7 +4,8 @@ import Header from '../../components/Header/Header'
 import Filter from '../../components/Filter/Filter'
 import Afficher from '../../components/Afficher/Afficher'
 import Navbar from '../../components/Navbar/Navbar'
-
+import About from '../../components/About/About'
+import Footer from '../../components/Footer/Footer'
 
 
 const Home = ({setShowLogin,theme,setTheme}) => {
@@ -18,6 +19,9 @@ const Home = ({setShowLogin,theme,setTheme}) => {
         <Filter promoSelecte={promoSelecte} setPromoSelecte={setPromoSelecte} theme={theme}/>
         <hr />
         <Afficher promoSelecte={promoSelecte}/>
+        <About />
+        <Footer />
+
     </div>
   )
 }
