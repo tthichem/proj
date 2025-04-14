@@ -1,58 +1,89 @@
 import { useState, useRef, useEffect } from "react";
-import data from "../../modules.json";
+import axios from "axios";
 import "./SearchBar.css";
 
 const SearchBar = ({ theme }) => {
   const [Recherche, setRecherche] = useState("");
   const [Rsultat, setRsultat] = useState(false);
+  const [modules, setModules] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const detect = useRef(null);
 
   useEffect(() => {
-    const clickBara = (e) => {
+    const fetchModules = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        const response = await axios.get('http://localhost:5000/api/modules/get');
+        
+        let data = response.data;
+        
+        if (Array.isArray(data)) {
+          setModules(modulesFormate(data));
+          return;
+        }
+        
+        if (data && typeof data === 'object') {
+          const dataPossible = ['data',  'modules'];
+          for (const prop of dataPossible) {
+            if (Array.isArray(data[prop])) {
+              setModules(modulesFormate(data[prop]));
+              return;
+            }
+          }
+        }
+        
+        throw new Error("la structure depuis database n'est pas expectée");
+        
+      } catch (err) {
+        setError(err.message);
+        console.error("Fetch error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const modulesFormate = (modulesArray) => {
+      return modulesArray.map(module => ({
+        name: module.name || '',
+        systeme: module.systeme || '',
+        anne: module.anne || '',
+        specialite: module.specialité || null,
+        semester: module.semester || '',
+        link: module.google_drive_link || '#',
+        motARecherche: `${module.anne || ''} ${module.specialité || ''} ${module.name || ''}`.toLowerCase().trim(),
+        resultat: `${module.anne || ''}${module.specialité ? '/' + module.specialité : ''} - ${module.name || ''}`
+      }));
+    };
+
+    fetchModules();
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
       if (detect.current && !detect.current.contains(e.target)) {
         setRsultat(false);
       }
     };
-    document.addEventListener("mousedown", clickBara);
-    return () => document.removeEventListener("mousedown", clickBara);
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const modules = data.flatMap((major) => {
-    const majorName = major.name;
-    const hasSpecialties =
-      Array.isArray(major.specialites) && major.specialites.length > 0;
-
-    if (hasSpecialties) {
-      return major.specialites.flatMap((spec) => {
-        const specialiteName = spec.name;
-        return spec.semestres.flatMap((semestre) =>
-          semestre.modules.map((mod) => ({
-            label: `${majorName}/${specialiteName} - ${mod.name}`,
-            link: mod.link,
-          }))
-        );
-      });
-    } else {
-      return (
-        major.semestres?.flatMap((semestre) =>
-          semestre.modules.map((mod) => ({
-            label: `${majorName} - ${mod.name}`,
-            link: mod.link,
-          }))
-        ) || []
-      );
-    }
-  });
-
-  const filteredModules = modules.filter((mod) =>
-    mod.label.toLowerCase().includes(Recherche.toLowerCase())
+  const filteredModules = modules.filter(mod => 
+    mod.motARecherche.includes(Recherche.toLowerCase())
   );
 
   return (
     <div className="recherche-container" ref={detect}>
+      {loading && <div className="loading">Loading modules...</div>}
+      {error && <div className="error">Error: {error}</div>}
+
       <input
         type="text"
-        placeholder="Ex: L3/ISIL - Génie Logiciel"
+        placeholder="Ex: L3 ISIL Génie Logiciel"
         value={Recherche}
         onChange={(e) => {
           setRecherche(e.target.value);
@@ -64,14 +95,14 @@ const SearchBar = ({ theme }) => {
       {Recherche && Rsultat && (
         <ul className={`resultat-list ${theme}`}>
           {filteredModules.slice(0, 6).map((mod, index) => (
-            <li key={index} className="resultat-item">
+            <li key={`${mod.anne}-${mod.specialite}-${mod.name}-${index}`} className="resultat-item">
               <a
                 href={mod.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="resultat-link"
               >
-                {mod.label}
+                {mod.resultat}
               </a>
             </li>
           ))}
