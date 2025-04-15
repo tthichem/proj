@@ -149,7 +149,7 @@ const getModuleByName = async (req, res) => {
     try {
         // Recherche des modules par nom 
         const result = await pool.query(
-            "SELECT * FROM modules WHERE name ILIKE $1 LIMIT 10",  //ya3tik 10 7adah
+            "SELECT name ,google_drive_link  FROM modules WHERE name ILIKE $1 LIMIT 10",  //ya3tik 10 7adah
             [`%${query}%`]  
         );
 
