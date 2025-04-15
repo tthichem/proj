@@ -6,7 +6,6 @@ import Login from "./components/Login/Login";
 import Add from "./pages/Add/Add";
 import Lister from "./pages/Lister/Lister"
 import Reports from "./pages/Reports/Reports";
-import Navbar from "./components/Navbar/Navbar";
 
 
 const App = () => {
@@ -18,9 +17,9 @@ const App = () => {
     <>
       {showLogin ? <Login setShowLogin={setShowLogin} /> : <></>}
       <div className={`app ${theme}`}>
-      <Navbar theme={theme} setTheme={setTheme} setShowLogin={setShowLogin} />
+      
         <Routes>
-          <Route path="/" element={<Home theme={theme}/>} />
+          <Route path="/" element={<Home theme={theme} setTheme={setTheme} setShowLogin={setShowLogin}/>} />
           <Route path="/admin" element={<Admin />} >
           <Route path="add" element={<Add />} />
           <Route path="liste" element={<Lister />} />
