@@ -29,12 +29,12 @@ const createModule = async (req, res) => {
 };
 
 //  Supprimer un module (superuser uniquement)
-const deleteModuleByName = async (req, res) => {
-    const { name } = req.params;
+const deleteModuleByID = async (req, res) => {
+    const { id } = req.params;
 
     try {
         // Supprimer le module
-        const result = await pool.query("DELETE FROM modules WHERE name = $1 RETURNING *", [name]);
+        const result = await pool.query("DELETE FROM modules WHERE id = $1 RETURNING *", [id]);
 
         if (result.rows.length === 0) {
             return res.status(404).json({
@@ -58,6 +58,7 @@ const deleteModuleByName = async (req, res) => {
 const getModules = async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM modules ORDER BY systeme,anne,semester");
+        console.log(result)
         res.json({
             success: true,
             modules: result.rows,
@@ -134,6 +135,8 @@ const getModuleByName = async (req, res) => {
             });
         }
     };
+
+
     const searchModules = async (req, res) => {
         const { query } = req.query;  // le mot rechercher
     
@@ -173,4 +176,4 @@ const getDistinctSpecialites = async (req, res) => {
       });
     }
   };
-module.exports = { createModule, getModules, getModuleByName, deleteModuleByName,getModulesBox,getDistinctSpecialites,searchModules};
+module.exports = { createModule, getModules, getModuleByName, deleteModuleByID,getModulesBox,getDistinctSpecialites,searchModules};
