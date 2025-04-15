@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import './Navbar.css'
 import logo from '../../assets/logo-dark.png'
 import lightLogo from '../../assets/logo-dar.png'
-import { FaSearch } from 'react-icons/fa'
-import Search from '../Search/Search'
 import { MdDarkMode } from "react-icons/md";
 import { MdOutlineDarkMode } from "react-icons/md"; 
 import SearchBar from '../searchBar/SearchBar'
@@ -17,6 +15,7 @@ const Navbar = ({setShowLogin,theme,setTheme}) => {
     const dark =()=>{
       theme === "light" ? setTheme("dark") :setTheme("light");
     }
+    
 
   return (
     <div className='navbar'>
