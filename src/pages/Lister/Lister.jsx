@@ -17,9 +17,9 @@ const Lister = () => {
     }
   };
 
-  const supprimerModule = async (nomDeModule) => {
+  const supprimerModule = async (IDDeModule) => {
     const reponse = await axios.delete(
-      `${url}/api/modules/delete/${nomDeModule}`
+      `${url}/api/modules/delete/${IDDeModule}`
     );
     await fetch();
     if (reponse.data.success) {
@@ -54,7 +54,7 @@ const Lister = () => {
               <p>{mod.specialité}</p>
               <p>S{mod.semester}</p>
               <p className="drive-link">{mod.google_drive_link}</p>
-              <p className="delete" onClick={() => supprimerModule(mod.name)}>
+              <p className="delete" onClick={() => supprimerModule(mod.id)}>
                 X
               </p>
             </div>
