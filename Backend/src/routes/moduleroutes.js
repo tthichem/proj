@@ -8,7 +8,7 @@ router.post('/add', createModule);
 router.post('/semester',getModulesBox);
 router.delete('/delete/:name',deleteModuleByID);
 router.get('/get', getModules);
-router.get('/get/:name', getModuleByName);
+router.get('/get/:id', getModuleByName);
 router.get('/search', searchModules);
 router.get('/distinct-specialites',getDistinctSpecialites);
 module.exports = router;
