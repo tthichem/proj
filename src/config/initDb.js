@@ -15,7 +15,7 @@ const createTables = async () => {
                 systeme VARCHAR(10) CHECK (systeme IN ('LMD', 'ING')) NOT NULL,
                 anne INT NOT NULL ,
                 name VARCHAR(100) NOT NULL,
-                specialité VARCHAR(100) 
+                specialité VARCHAR(100),
                 semester INT CHECK (semester BETWEEN 1 AND 2),
                 google_drive_link TEXT NOT NULL
             );
