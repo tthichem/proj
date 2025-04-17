@@ -5,7 +5,7 @@ require("dotenv").config();
    const  registerUser = async (req, res) => {
     const { username, password } = req.body;
     try {
-        //  Vérifier si aslan rah msajal( l'email est déjà utilisé)
+        //  Vérifier si aslan rah msajal( name est déjà utilisé)
         const result = await pool.query("SELECT * FROM users WHERE username = $1", [username]);
         if (result.rows.length > 0) {
             return res.status(400).json({

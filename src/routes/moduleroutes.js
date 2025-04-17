@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { createModule, getModules, getModuleByName, deleteModuleByID,getModulesBox,searchModules,getDistinctSpecialites} = require('../controllers/modulecontroller');
+const { createModule, getModules, deleteModuleByID,searchModules,getDistinctSpecialites} = require('../controllers/modulecontroller');
 const isSuperUser = require('../middleware/SuperUserMiddleware');
+const isLogin = require('../middleware/LoginMiddelware');
 
 
-router.post('/add', createModule);
-router.post('/semester',getModulesBox);
-router.delete('/delete/:name',deleteModuleByID);
+router.post('/add',isLogin,isSuperUser, createModule);
+router.delete('/delete/:name',isSuperUser,deleteModuleByID);
 router.get('/get', getModules);
-router.get('/get/:name', getModuleByName);
 router.get('/search', searchModules);
 router.get('/distinct-specialites',getDistinctSpecialites);
 module.exports = router;
